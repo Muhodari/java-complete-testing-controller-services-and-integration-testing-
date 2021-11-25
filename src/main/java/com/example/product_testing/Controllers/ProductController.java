@@ -52,11 +52,11 @@ return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(new APIResponse(false,"
        }
        productRepository.save(product);
 
-       return  ResponseEntity.ok(product)
+       return  ResponseEntity.ok(product);
 }
 
 
-@PutMapping
+@PutMapping("/update-product/{id}")
     public  ResponseEntity<?> updateProduct(@PathVariable(name="id")int id, @Valid UpdateProductDto dto){
        return  productServices.updateProduct(id,dto);
 

@@ -40,9 +40,7 @@ public  Product getById(int id){
 
 
 public ResponseEntity<?> updateProduct(int id, UpdateProductDto dto){
-
 Optional<Product> findById = productRepository.findById(id);
-
 if(findById.isPresent()){
     Product product= findById.get();
     if(productRepository.existsByName(dto.getName()) &&
