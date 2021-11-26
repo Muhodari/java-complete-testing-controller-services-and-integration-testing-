@@ -61,6 +61,41 @@ public class ProductServiceTest {
 
  }
 
+ @Test
+    public void update_NameExist(){
+     UpdateProductDto dto= new UpdateProductDto("clothes",5,6,"product to update");
+     Product product= new Product(1,"money",12,45,"money pays all");
+
+     when(productRepositoryMock.findById(1)).thenReturn(Optional.of(product));
+     when(productRepositoryMock.existsByName(dto.getName())).thenReturn(true);
+
+     ResponseEntity<?> updateProduct = productServices.updateProduct(1,dto);
+     assertTrue(updateProduct.getStatusCodeValue()==400);
+
+ }
+
+@Test
+public void update_nameNotExist_succes(){
+UpdateProductDto dto = new UpdateProductDto("mugabe",23,43,"welcome to home");
+Product product = new Product(1,"cars",34,65,"cards for transport");
+
+when(productRepositoryMock.findById(1)).thenReturn(Optional.of(product));
+when(productRepositoryMock.existsByName(dto.getName())).thenReturn(false);
+
+product.setName(dto.getName());
+product.setPrice(dto.getPrice());
+product.setQuantity(dto.getQuantity());
+product.setDescription(dto.getDescription());
+
+when(productRepositoryMock.save(product)).thenReturn(product);
+
+ResponseEntity<?>  updateProduct = productServices.updateProduct(1,dto);
+//assertTrue(updateProduct.getStatusCode().is2xxSuccessful());
+assertTrue(updateProduct.getStatusCodeValue()==201);
+
+
+}
+
 
 
 
