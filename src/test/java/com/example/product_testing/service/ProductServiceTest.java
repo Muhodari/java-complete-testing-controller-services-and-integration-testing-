@@ -93,7 +93,6 @@ ResponseEntity<?>  updateProduct = productServices.updateProduct(1,dto);
 //assertTrue(updateProduct.getStatusCode().is2xxSuccessful());
 assertTrue(updateProduct.getStatusCodeValue()==201);
 
-
 }
 
 
