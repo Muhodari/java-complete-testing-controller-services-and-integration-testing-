@@ -51,6 +51,16 @@ public class ProductServiceTest {
  }
 
 
+ @Test
+    public void  update_notFound(){
+     UpdateProductDto dto= new UpdateProductDto("money",5,6,"amazing product");
+
+     when(productRepositoryMock.findById(1)).thenReturn(Optional.empty());
+     ResponseEntity<?> UpdateProduct = productServices.updateProduct(1,dto);
+     assertTrue(UpdateProduct.getStatusCodeValue()==404);
+
+ }
+
 
 
 
