@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 
 import java.util.Arrays;
@@ -56,13 +57,33 @@ public class ProductControllerTest {
                .perform(request)
                .andExpect(status().isOk())
                .andExpect(content()
-                       .json("[{\"id\":1,\"name\":\"monkey\",\"price\":2}," +
-                               "{\"id\":12,\"name\":\"banana\",\"price\":4}]"))
+                       .json("[{\"id\":1,\"name\":\"monkey\",\"price\":2,\"quantity\":2,\"description\":\"monkey market\"}," +
+                               "{\"id\":12,\"name\":\"banana\",\"price\":4,\"quantity\":4,\"description\":\"banana market\"}]"))
                .andReturn();
-
-
-
    }
+
+
+   @Test
+    public void getByOne_404() throws Exception{
+Product product = new Product(1,"sagamba",45,65,"welcome back again");
+when(productServicesMock.getById(product.getId())).thenReturn(product);
+
+
+MockHttpServletRequestBuilder request= MockMvcRequestBuilders
+        .get("/all-products/2")
+        .accept(MediaType.APPLICATION_JSON);
+
+MvcResult result =mockMvc
+        .perform(request)
+        .andExpect(status().isNotFound())
+        .andExpect(content().json("{\"status\":false,\"message\":\"Item not found\"}"))
+        .andReturn();
+    }
+
+
+
+
+
 
 
 
