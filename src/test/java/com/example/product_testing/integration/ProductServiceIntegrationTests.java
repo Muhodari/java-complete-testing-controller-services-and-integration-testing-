@@ -1,6 +1,7 @@
 package com.example.product_testing.integration;
 
 import com.example.product_testing.models.Product;
+import com.example.product_testing.utils.APIResponse;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -10,8 +11,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -44,10 +44,18 @@ public class ProductServiceIntegrationTests {
      assertEquals(4000,product.getBody().getValue());
      assertTrue(product.getStatusCodeValue()==200);
 
-
-
  }
 
+
+ @Test
+    public void getById_404() throws Exception{
+        ResponseEntity<APIResponse> product = this.testRestTemplate.getForEntity("/all-products/1",APIResponse.class);
+
+        assertTrue(product.getStatusCodeValue()==404);
+        assertFalse(product.getBody().isStatus());
+        assertEquals( "Product Not Found",product.getBody().getMessage());
+
+ }
 
 
 }
