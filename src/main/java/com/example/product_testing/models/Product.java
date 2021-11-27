@@ -92,4 +92,15 @@ public class Product {
     public void setValue(int value) {
         this.value = value;
     }
+
+
+    @Override
+    public String toString() {
+        return "Product [id=" + id + ", name=" + name + ", price=" + price + "," +
+                " quantity=" + quantity + ",description=" + description+" ,value=" + value
+                + "]";
+    }
+
+
+
 }

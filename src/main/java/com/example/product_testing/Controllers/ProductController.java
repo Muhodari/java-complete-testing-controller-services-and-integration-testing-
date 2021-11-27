@@ -49,7 +49,7 @@ return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(new APIResponse(false,"
        
        if(productRepository.existsByName(product.getName())){
            return  ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                   .body(new APIResponse(false,"Product name already exixt"));
+                   .body(new APIResponse(false,"Product name already exist"));
        }
        productRepository.save(product);
 

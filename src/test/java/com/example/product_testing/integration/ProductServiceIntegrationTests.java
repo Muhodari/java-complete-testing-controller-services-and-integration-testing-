@@ -58,4 +58,16 @@ public class ProductServiceIntegrationTests {
  }
 
 
+ @Test
+    public void addNewPOst_success() throws Exception{
+      ResponseEntity <Product> product= this.testRestTemplate.postForEntity("/add-new-product",
+              new Product(12,"sagamba",23,34,"new product there"),Product.class);
+
+      System.out.println(product.getStatusCodeValue());
+        assertTrue(product.getStatusCodeValue()==200);
+ }
+
+
+
+
 }

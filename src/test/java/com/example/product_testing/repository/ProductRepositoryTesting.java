@@ -41,6 +41,16 @@ public class ProductRepositoryTesting {
 
 
 
+  @Test
+    public void addnewProduct_succss(){
+       Product product = productRepository.save(new Product(23,"money",34,56,"new products"));
+       assertTrue(product.getName()=="money");
+
+  }
+
+
+
+
 
 
 

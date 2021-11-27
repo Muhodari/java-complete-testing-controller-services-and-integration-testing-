@@ -15,7 +15,7 @@ import java.util.Optional;
 public class ProductServices {
 
 @Autowired
-    private ProductRepository productRepository;
+private ProductRepository productRepository;
 
 
 public List<Product> getAll(){
