@@ -65,4 +65,33 @@ return  ResponseEntity.status(HttpStatus.NOT_FOUND).body("product does not exist
 
 
 
+
+
+
+public ResponseEntity<?> AddNewProduct( Product product){
+    Optional<Product> productExist = productRepository.findById(product.getId());
+    boolean NameExist = productRepository.existsByName(product.getName());
+    Product newProduct= new Product();
+
+    if(productExist.isPresent() || NameExist==true){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Product already Exist");
+        }
+
+         newProduct.setId(product.getId());
+        newProduct.setName(product.getName());
+        newProduct.setPrice(product.getPrice());
+        newProduct.setQuantity(product.getQuantity());
+        newProduct.setDescription(product.getDescription());
+
+        productRepository.save(product);
+        return ResponseEntity.status(HttpStatus.CREATED).body(product);
+    }
+
+
+
+
+
+
+
+
 }

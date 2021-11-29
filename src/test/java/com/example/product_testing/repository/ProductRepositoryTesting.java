@@ -2,11 +2,13 @@ package com.example.product_testing.repository;
 
 
 import com.example.product_testing.Repository.ProductRepository;
+import com.example.product_testing.dto.UpdateProductDto;
 import com.example.product_testing.models.Product;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.nio.file.OpenOption;
@@ -29,6 +31,7 @@ public class ProductRepositoryTesting {
       assertEquals(4,products.size()) ;
   }
 
+
   @Test
     public void findOne_success(){
       Optional<Product> product = productRepository.findById(101);
@@ -37,11 +40,21 @@ public class ProductRepositoryTesting {
   }
 
 
+    @Test
+    public void  UpdateOne_success(){
+     Optional<Product> product =productRepository.findById(101);
+     assertTrue(product.isPresent());
+
+//        UpdateProductDto dto= new Product("sagemba",34,54,"description");
+//        ResponseEntity<Product> UpdatedItem= productRepository.save(dto)
+
+
+    }
 
 
 
 
-  @Test
+    @Test
     public void addnewProduct_succss(){
        Product product = productRepository.save(new Product(23,"money",34,56,"new products"));
        assertTrue(product.getName()=="money");
